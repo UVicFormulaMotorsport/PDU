@@ -1,0 +1,16 @@
+# Altium files
+design/*
+!design/*.PcbDoc
+!design/*.PcbLib
+!design/*.PrjPcb
+!design/*.PrjPcbStructure
+!design/*.SchDoc
+!design/*.SchLib
+!design/jobs
+!design/jobs/*
+
+simulations/*
+!simulations/*.asc
+!simulations/*.pdf
+!simulations/*.png
+!simulations/*.txt
