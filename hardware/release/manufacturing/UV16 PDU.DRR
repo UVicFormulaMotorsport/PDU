@@ -1,0 +1,22 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: UV16 PDU.PcbDoc   2015-11-23  11:47:33 AM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : UV16 PDU.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      13mil (0.33mm)                                            Round             12        PTH        2.47inch (62.86mm)
+T2      24mil (0.6mm)                                             Round             66        PTH        17.86inch (453.74mm)
+T3      28mil (0.711mm)                                           Round             40        PTH        11.37inch (288.80mm)
+T4      32mil (0.8mm)                                             Round             13        PTH        1.91inch (48.50mm)
+T5      35mil (0.9mm)                                             Round             6         PTH        0.50inch (12.70mm)
+T6      63mil (1.6mm)                                             Round             32        PTH        4.82inch (122.48mm)
+T7      71mil (1.8mm)                                             Round             8         PTH        1.38inch (35.05mm)
+T8      138mil (3.5mm)                                            Round             4         PTH        10.48inch (266.30mm)
+T9      114mil (2.9mm)                                            Round             3         NPTH       1.40inch (35.52mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              184
+
+Total Processing Time (hh:mm:ss) : 00:00:00
