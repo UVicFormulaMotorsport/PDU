@@ -15,7 +15,7 @@ LifeCycleDefinitionGUID=
 RevisionNamingSchemeGUID=
 
 [OutputGroup1]
-Name=CANmon Schematic.OutJob
+Name=Schematic.OutJob
 Description=
 TargetOutputMedium=Schematic
 VariantName=[No Variations]
@@ -74,7 +74,7 @@ ShowComponentParameters1=1
 GlobalBookmarks1=0
 OutputFilePath2=
 ReleaseManaged2=1
-OutputBasePath2=Project Outputs for Free Documents
+OutputBasePath2=Project Outputs for UV16 PDU
 OutputPathMedia2=
 OutputPathMediaValue2=
 OutputPathOutputer2=[Output Type]
@@ -87,7 +87,7 @@ OutputFileNameSpecial2=
 OpenOutput2=1
 OutputFilePath3=
 ReleaseManaged3=1
-OutputBasePath3=Project Outputs for Free Documents
+OutputBasePath3=Project Outputs for UV16 PDU
 OutputPathMedia3=
 OutputPathMediaValue3=
 OutputPathOutputer3=[Output Type]
