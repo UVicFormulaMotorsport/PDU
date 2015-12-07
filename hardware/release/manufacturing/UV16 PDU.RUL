@@ -1,6 +1,5 @@
-DRC Rules Export File for PCB: C:\Users\PC\Documents\GitHub\PDU\hardware\design\UV16 PDU.PcbDoc
-RuleKind=Clearance|RuleName=Clearance_1|Scope=Board|Minimum=7.87
+DRC Rules Export File for PCB: D:\FSAE\PDU\hardware\design\UV16 PDU.PcbDoc
 RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
-RuleKind=Clearance|RuleName=+12VPlaneClearance|Scope=Board|Minimum=78.74
-RuleKind=Width|RuleName=Width|Scope=Board|Minimum=10.00
-RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=1.97
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=9.84
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=9.84
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=3.94
