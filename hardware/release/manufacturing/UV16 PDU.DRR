@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: UV16 PDU.PcbDoc   12/7/2015  12:30:38 AM
+NCDrill File Report For: UV16 PDU.PcbDoc   12/11/2015  6:00:50 PM
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -9,13 +9,13 @@ Tool       Hole Size               Hole Tolerance               Hole Type       
 ----------------------------------------------------------------------------------------------------------------------------------
 T1      16mil (0.4mm)                                             Round             38        PTH        12.92inch (328.05mm)
 T2      24mil (0.6mm)                                             Round             32        PTH        12.12inch (307.86mm)
-T3      28mil (0.711mm)                                           Round             55        PTH        15.39inch (390.85mm)
+T3      28mil (0.711mm)                                           Round             57        PTH        16.92inch (429.65mm)
 T4      43mil (1.1mm)                                             Round             6         PTH        0.50inch (12.70mm)
 T5      63mil (1.6mm)                                             Round             16        PTH        1.50inch (38.10mm)
 T6      71mil (1.8mm)                                             Round             12        PTH        2.00inch (50.80mm)
 T7      138mil (3.5mm)                                            Round             4         PTH        10.48inch (266.30mm)
 T8      114mil (2.9mm)                                            Round             3         NPTH       1.65inch (41.87mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              166
+Totals                                                                              168
 
-Total Processing Time (hh:mm:ss) : 00:00:00
+Total Processing Time (hh:mm:ss) : 00:00:01
