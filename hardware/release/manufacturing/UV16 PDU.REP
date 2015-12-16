@@ -59,11 +59,10 @@ Generating : Bottom Layer
 
 
 Used DCodes :
-    D31
     D32
     D34
+    D37
     D38
-    D39
     D40
     D41
     D42
@@ -82,8 +81,8 @@ Generating : Top Overlay
 
 
 Used DCodes :
-    D31
-    D33
+    D34
+    D39
     D48
     D49
     D50
@@ -144,7 +143,6 @@ Generating : Bottom Solder
 
 
 Used DCodes :
-    D73
     D74
     D75
     D76
@@ -161,9 +159,9 @@ Generating : Bottom Overlay
 
 
 Used DCodes :
-    D32
     D33
-    D35
+    D37
+    D39
     D49
     D50
     D51
@@ -178,7 +176,7 @@ Generating : Keep-Out Layer
 
 
 Used DCodes :
-    D50
+    D49
 *************************************************************
 
 *************************************************************
