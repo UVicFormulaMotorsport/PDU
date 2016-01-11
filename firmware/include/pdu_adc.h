@@ -16,5 +16,33 @@
   this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef __PDU_ADC_H__
+#define __PDU_ADC_H__
+
+
+/* How many channels to convert each ADC run */
+#define PDU_ADC_CHANNEL_COUNT 6
+
+/* ADC reference source */
+#define PDU_ADC_REFERENCE (0x03 << 6)
+
+/*
+  ADC multiplexer channels
+
+  Determines which ADC channels are connected to which current sense outputs.
+*/
+#define PDU_ADC_MUX_IS_HC1 0x09
+#define PDU_ADC_MUX_IS_HC2 0x0A
+#define PDU_ADC_MUX_IS_LC1 0x05
+#define PDU_ADC_MUX_IS_LC2 0x08
+#define PDU_ADC_MUX_IS_LC3 0x07
+#define PDU_ADC_MUX_IS_LC4 0x04
+#define PDU_ADC_MUX_GND    0x12
+
+
 
 void pdu_adc_init(void);
+void pdu_adc_run(void);
+
+
+#endif
