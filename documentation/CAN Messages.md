@@ -4,23 +4,23 @@ CAN Messages
 Input
 -----
 
-0x00 Enable Channel
-0x01 Disable Channel
-0x02 Disable All Channels
+* `0x500` Enable Channel
+* `0x501` Disable Channel
+* `0x502` Disable All Channels
 
 
 Output
 ------
 
-0x10 System Status
-0x11 Channel Status
-0x12 Channel Currents
-0x13 Channel Tripped
+* `0x510` System Status
+* `0x511` Channel Status
+* `0x512` Channel Currents
+* `0x513` Channel Tripped
 
 
 Config
 ------
 
-0x20 System Config
-0x21 Channel Config
-0x22 Input Config
+* `0x520` System Config
+* `0x521` Channel Config
+* `0x522` Input Config
