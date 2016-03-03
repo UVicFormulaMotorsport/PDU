@@ -33,9 +33,9 @@ STANDARD     = c11
 ################################################################################
 # Programmer Options
 ################################################################################
-PROGRAMMER         = arduino #stk500v2
+PROGRAMMER         = arduino
 PROGRAMMER_PORT    = /dev/cu.usbmodem*
-PROGRAMMER_OPTIONS = -b 19200 # -b 115200
+PROGRAMMER_OPTIONS = -b 19200
 
 
 ################################################################################
@@ -75,7 +75,7 @@ GCC_FLAGS += $(patsubst %,-I%,$(INCLUDE_DIR)) -I. $(CFLAGS)
 LD_FLAGS  = -mmcu=$(TARGET) -DF_CPU=$(F_CPU)
 LD_FLAGS += $(patsubst %,-I%,$(INCLUDE_DIR)) -I. $(CFLAGS)
 
-AVRDUDE_FLAGS = -q -q -q -q -F -p m16M1 -c $(PROGRAMMER) -P $(PROGRAMMER_PORT) $(PROGRAMMER_OPTIONS)
+AVRDUDE_FLAGS = -p m16M1 -c $(PROGRAMMER) -P $(PROGRAMMER_PORT) $(PROGRAMMER_OPTIONS)
 
 
 ################################################################################
@@ -93,6 +93,9 @@ hex: all $(PROJECT).hex $(PROJECT).eep
 
 upload: hex
 	$(AVRDUDE) $(AVRDUDE_FLAGS) -U flash:w:$(PROJECT).hex # -U eeprom:w:$(PROJECT).eep
+
+fuse:
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U lfuse:w:0xff:m -U hfuse:w:0xd9:m -U efuse:w:0xfe:m
 
 clean:
 	find . \( -type f -name '*.o' -o -name '*.s' -o -name '*.out' -o -name '*.hex' \) -exec $(REMOVE) {} \;
