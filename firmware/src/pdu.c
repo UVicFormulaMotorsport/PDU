@@ -22,11 +22,19 @@
 
 volatile uint32_t pdu_clock = 0;
 
-volatile uint16_t pdu_can_clock = 0;
 volatile uint8_t pdu_can_trigger = 0;
+volatile uint8_t pdu_input_trigger = 0;
 
-volatile uint8_t pdu_channel_status = 0;
-volatile uint8_t pdu_channel_currents[6] = {0, 0, 0, 0, 0, 0};
+volatile uint8_t pdu_channel_status[8];
+volatile uint8_t pdu_channel_currents[8];
+
+volatile uint8_t pdu_soft_input_status[8];
+volatile uint8_t pdu_soft_output_status[8];
+
+uint8_t pdu_input_status[3];
+
+uint8_t pdu_input_previous[3];
+uint8_t pdu_input_current[3];
 
 
 void pdu_gpio_init(void);
@@ -36,6 +44,8 @@ void pdu_timer_init(void);
 int
 main(void)
 {
+	uint8_t i;
+
 	/* Enable global interrupts */
 	sei();
 	
@@ -45,15 +55,49 @@ main(void)
 	pdu_gpio_init();
 	pdu_timer_init();
 
+	pdu_channel_enable(LC1);
+	pdu_channel_enable(LC2);
+	pdu_channel_enable(LC3);
+	pdu_channel_enable(LC4);
+
 	for (;;) {
 		pdu_adc_run();
 
 		if (pdu_can_trigger) {
-			pdu_can_send_system_status();
-			pdu_can_send_channel_status();
-			pdu_can_send_channel_currents();
+			pdu_can_send_status();
 			pdu_can_trigger = 0;
 		}
+
+		if (pdu_input_trigger) {
+
+			/* Detect current input state */
+			pdu_input_current[0] = ((PIND & 0x10) >> 4);
+			pdu_input_current[1] = ((PINB & 0x02) >> 1);
+			pdu_input_current[2] =  (PINB & 0x01);
+
+			/*
+			  Ensure that inputs remain constant for at least 10 ms to avoid
+			  contact bounce causing multiple transitions.
+			*/
+			for (i = 0; i < 3; i++) {
+				if (   pdu_input_current[i] == pdu_input_previous[i]
+					&& pdu_input_current[i] != pdu_input_status[i])
+				{
+					pdu_input_status[i] = pdu_input_current[i];
+				}
+
+				pdu_input_previous[i] = pdu_input_current[i];
+			}
+
+			pdu_input_trigger = 0;
+		}
+
+
+		/* PDU Custom Logic ========================================= */
+
+		/* IN1, IN2 directly connected to soft outputs 1 and 2 */
+		pdu_soft_output_status[0] = pdu_input_status[0];
+		pdu_soft_output_status[1] = pdu_input_status[1];
 	}
 
 	return 0;
@@ -64,13 +108,13 @@ void
 pdu_gpio_init(void)
 {
 	/* Configure driver switch pins as outputs */
-	DDRB = (1 << DDB4);
-	DDRC = (1 << DDC0) || (1 << DDC2);
-	DDRD = (1 << DDD0) || (1 << DDD1) || (1 << DDD6) || (1 << DDD7);
+	DDRB |= (1 << DDB4);
+	DDRC |= (1 << DDC0);
+	DDRD |= (1 << DDD0) | (1 << DDD1) | (1 << DDD6) | (1 << DDD7);
 
 	/* Configure discrete input pins as inputs with pull-ups */
-	PORTB |= (1 << PORTB0) |  (1 << PORTB1);
-	PORTD |= (1 << PORTD5);
+	PORTB = (1 << PORTB0) | (1 << PORTB1);
+	PORTD = (1 << PORTD5);
 }
 
 
@@ -97,7 +141,7 @@ pdu_channel_enable(channel_e channel)
 	else if (channel == LC3) PORTC |= (1 << PORTC0);
 	else if (channel == LC4) PORTD |= (1 << PORTD0);
 
-	pdu_channel_status |= (1 << channel);
+	pdu_channel_status[channel] = 1;
 }
 
 
@@ -111,7 +155,7 @@ pdu_channel_disable(channel_e channel)
 	else if (channel == LC3) PORTC &= ~(1 << PORTC0);
 	else if (channel == LC4) PORTD &= ~(1 << PORTD0);
 
-	pdu_channel_status &= ~(1 << channel);
+	pdu_channel_status[channel] = 0;
 }
 
 
@@ -119,7 +163,6 @@ void
 pdu_channel_trip(channel_e channel)
 {
 	pdu_channel_disable(channel);
-	pdu_can_send(0, PDU_CAN_ID_OUT_CHANNEL_TRIPPED, &channel, 1);
 }
 
 
@@ -129,4 +172,7 @@ ISR(TIMER1_COMPA_vect)
 
 	/* Trigger CAN messages */
 	if (pdu_clock % PDU_CAN_INTERVAL == 0) pdu_can_trigger = 1;
+
+	/* Trigger input check */
+	if (pdu_clock % PDU_INPUT_INTERVAL == 0) pdu_input_trigger = 1;
 }

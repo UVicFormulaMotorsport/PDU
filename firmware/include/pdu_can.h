@@ -25,23 +25,18 @@
 
   All CAN message IDs are specified relative to this base ID.
 */
-#define PDU_CAN_ID_BASE 0x600
+#define PDU_CAN_ID_BASE 0x700
 
 /*
   CAN message ID offsets
 
   The CAN message ID is calculated by adding the offset to the base ID.
 */
-#define PDU_CAN_ID_IN_CHAN_ENABLE       (0x00 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_IN_CHAN_DISABLE      (0x01 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_IN_CHAN_DISABLE_ALL  (0x02 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_OUT_SYSTEM_STATUS    (0x10 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_OUT_CHANNEL_STATUS   (0x11 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_OUT_CHANNEL_CURRENTS (0x12 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_OUT_CHANNEL_TRIPPED  (0x13 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_CFG_SYSTEM           (0x20 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_CFG_CHANNEL          (0x21 + PDU_CAN_ID_BASE)
-#define PDU_CAN_ID_CFG_INPUT            (0x22 + PDU_CAN_ID_BASE)
+#define PDU_CAN_ID_STATUS   (0x01 + PDU_CAN_ID_BASE)
+#define PDU_CAN_ID_CURRENTS (0x05 + PDU_CAN_ID_BASE)
+#define PDU_CAN_ID_EXTRAS   (0x09 + PDU_CAN_ID_BASE)
+#define PDU_CAN_ID_SOFT_IN  (0x10 + PDU_CAN_ID_BASE)
+#define PDU_CAN_ID_SOFT_OUT (0x18 + PDU_CAN_ID_BASE)
 
 /*
   CAN input message ID mask
@@ -52,24 +47,24 @@
 
   (id XNOR id_tag) OR (NOT id_mask) == 0x7FF
 */
-#define PDU_CAN_INPUT_ID_MASK 0x7FC
+#define PDU_CAN_INPUT_ID_MASK 0x780
 
 /*
   CAN message interval (in milliseconds)
 
   The system and channel status messages will be sent after every interval using
   the counter from Timer/Counter0.
+
+  Default is 10 ms for a 100 Hz update rate
 */
-#define PDU_CAN_INTERVAL 1000
+#define PDU_CAN_INTERVAL 10
 
 
 void pdu_can_init(void);
 
 void pdu_can_send(uint8_t page, uint16_t id, volatile uint8_t msg[], uint8_t len);
 
-void pdu_can_send_system_status(void);
-void pdu_can_send_channel_status(void);
-void pdu_can_send_channel_currents(void);
+void pdu_can_send_status(void);
 
 
 #endif

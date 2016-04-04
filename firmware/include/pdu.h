@@ -32,13 +32,16 @@
 #include "pdu_can.h"
 
 
+#define PDU_INPUT_INTERVAL 10
+
+
 typedef enum {
-	HC1 = 0x01,
-	HC2 = 0x02,
-	LC1 = 0x04,
-	LC2 = 0x08,
-	LC3 = 0x10,
-	LC4 = 0x20
+	HC1 = 0,
+	HC2 = 1,
+	LC1 = 2,
+	LC2 = 3,
+	LC3 = 4,
+	LC4 = 5
 } channel_e;
 
 
@@ -50,8 +53,13 @@ volatile uint32_t pdu_clock;
 
 volatile uint8_t pdu_can_trigger;
 
-volatile uint8_t pdu_channel_status;
-volatile uint8_t pdu_channel_currents[6];
+volatile uint8_t pdu_channel_status[8];
+volatile uint8_t pdu_channel_currents[8];
+
+volatile uint8_t pdu_soft_input_status[8];
+volatile uint8_t pdu_soft_output_status[8];
+
+uint8_t pdu_input_status[3];
 
 
 #endif
