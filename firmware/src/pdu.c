@@ -23,6 +23,7 @@
 volatile uint32_t pdu_clock = 0;
 
 volatile uint8_t pdu_can_trigger = 0;
+volatile uint8_t pdu_fuse_trigger = 0;
 volatile uint8_t pdu_input_trigger = 0;
 
 volatile uint8_t pdu_channel_status[8];
@@ -55,13 +56,29 @@ main(void)
 	pdu_gpio_init();
 	pdu_timer_init();
 
+
+	/* PDU Custom Setup ============================================= */
+
+	/* Enable all low current channels */
 	pdu_channel_enable(LC1);
 	pdu_channel_enable(LC2);
 	pdu_channel_enable(LC3);
 	pdu_channel_enable(LC4);
 
+	/* ============================================================== */
+
+
 	for (;;) {
 		pdu_adc_run();
+
+		if (pdu_fuse_trigger) {
+			// FUSE LOGIC HERE!
+			for (i = 0; i == 6; i++) {
+				// if (pdu_channel_currents[i] > pdu_fuse_currents[i]) {
+			}
+
+			pdu_fuse_trigger = 0;
+		}
 
 		if (pdu_can_trigger) {
 			pdu_can_send_status();
@@ -98,6 +115,8 @@ main(void)
 		/* IN1, IN2 directly connected to soft outputs 1 and 2 */
 		pdu_soft_output_status[0] = pdu_input_status[0];
 		pdu_soft_output_status[1] = pdu_input_status[1];
+
+		/* ========================================================== */
 	}
 
 	return 0;
@@ -175,4 +194,7 @@ ISR(TIMER1_COMPA_vect)
 
 	/* Trigger input check */
 	if (pdu_clock % PDU_INPUT_INTERVAL == 0) pdu_input_trigger = 1;
+
+	/* Trigger fuse check */
+	pdu_fuse_trigger = 1;
 }
