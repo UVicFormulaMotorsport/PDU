@@ -68,13 +68,36 @@ main(void)
 	/* ============================================================== */
 
 
+	int counter_above50[6] = {0,0,0,0,0,0};
+	int counter_above30[6] = {0,0,0,0,0,0};
+
 	for (;;) {
 		pdu_adc_run();
 
+		// Compare the channel to the fuse
 		if (pdu_fuse_trigger) {
 			// FUSE LOGIC HERE!
 			for (i = 0; i == 6; i++) {
-				// if (pdu_channel_currents[i] > pdu_fuse_currents[i]) {
+				if (pdu_channel_currents[i] > pdu_fuse_currents[i]) {
+
+					if (pdu_channel_currents[i] >= 30 && 
+					    pdu_channel_currents[i] < 50) {
+						counter_above30[i]++;
+						if (counter_above30[i] >= 500) { // 5 sec
+							// fuse
+						}
+						counter_above50[i] = 0;
+					}
+					if (pdu_channel_currents[i] >= 50) {
+						counter_above50[i]++;
+						if (counter_above50[i] >= 50) { //0.5 sec
+							// fuse
+						}
+					}
+					else {
+						counter_above50[i] = 0;
+						counter_above30[i] = 0;
+				}
 			}
 
 			pdu_fuse_trigger = 0;
