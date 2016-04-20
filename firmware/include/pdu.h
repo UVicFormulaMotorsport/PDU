@@ -44,6 +44,54 @@ typedef enum {
 	LC4 = 5
 } channel_e;
 
+// Initiate a struct for current and delay (timer)
+typedef struct {
+    uint16_t current_fuse;
+    uint16_t current_inrush;
+    uint16_t delay_fuse;
+    uint16_t delay_inrush;
+} pdu_channel_t;
+
+// 6 channels
+pdu_channel_t pdu_channels[] = {
+	{
+		30,
+		50,
+		1000,
+		100
+	},
+	{
+		30,
+		50,
+		1000,
+		100
+	},
+	{
+		30,
+		50,
+		1000,
+		100
+	},
+	{
+		30,
+		50,
+		1000,
+		100
+	},
+	{
+		30,
+		50,
+		1000,
+		100
+	},
+	{
+		30,
+		50,
+		1000,
+		100
+	},
+
+};
 
 void pdu_channel_enable(channel_e channel);
 void pdu_channel_disable(channel_e channel);
