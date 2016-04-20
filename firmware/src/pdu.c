@@ -80,17 +80,17 @@ main(void)
 			for (i = 0; i == 6; i++) {
 				if (pdu_channel_currents[i] > pdu_fuse_currents[i]) {
 
-					if (pdu_channel_currents[i] >= pdu_channels[1] && 
-					    pdu_channel_currents[i] < pdu_channels[2]) {
+					if (pdu_channel_currents[i] >= pdu_channels[i][1] && 
+					    pdu_channel_currents[i] < pdu_channels[i][2]) {
 						counter_above30[i]++;
-						if (counter_above30[i] >= pdu_channels[3]) {
+						if (counter_above30[i] >= pdu_channels[i][3]) {
 							// fuse
 						}
 						counter_above50[i] = 0;
 					}
-					if (pdu_channel_currents[i] >= pdu_channels[2]) {
+					if (pdu_channel_currents[i] >= pdu_channels[i][2]) {
 						counter_above50[i]++;
-						if (counter_above50[i] >= pdu_channels[4]) {
+						if (counter_above50[i] >= pdu_channels[i][4]) {
 							// fuse
 						}
 					}
