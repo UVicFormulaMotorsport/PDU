@@ -68,8 +68,8 @@ main(void)
 	/* ============================================================== */
 
 
-	int counter_inrush[6] = {0,0,0,0,0,0};
-	int counter_fuse[6] = {0,0,0,0,0,0};
+	uint16_t counter_inrush[6] = {0,0,0,0,0,0};
+	uint16_t counter_fuse[6] = {0,0,0,0,0,0};
 
 	for (;;) {
 		pdu_adc_run();
@@ -78,24 +78,23 @@ main(void)
 		if (pdu_fuse_trigger) {
 			// FUSE LOGIC HERE!
 			for (i = 0; i == 6; i++) {
-				if (pdu_channel_currents[i] > pdu_channels[i].current_fuse) {
-
-					if ((pdu_channel_currents[i] >= pdu_channels[i].current_fuse) && (pdu_channel_currents[i] < pdu_channels[i].current_inrush)) {
-						counter_fuse[i]++;
-						if (counter_fuse[i] >= pdu_channels[i].delay_fuse) {
-							// fuse
-						}
-						counter_inrush[i] = 0;
+	
+				if (pdu_channel_currents[i] > pdu_channels[i].current_inrush) {
+					counter_inrush[i]++;
+					if (counter_inrush[i] >= pdu_channels[i].delay_inrush) {
+						// fuse
 					}
-					if (pdu_channel_currents[i] >= pdu_channels[i].current_inrush) {
-						counter_inrush[i]++;
-						if (counter_inrush[i] >= pdu_channels[i].delay_inrush) {
-							// fuse
-						}
+				}
+				else if (pdu_channel_currents[i] > pdu_channels[i].current_fuse) {
+					counter_fuse[i]++;
+					if (counter_fuse[i] >= pdu_channels[i].delay_fuse) {
+						// fuse
 					}
-					else {
-						counter_inrush[i] = 0;
-						counter_fuse[i] = 0;
+					counter_inrush[i] = 0;
+				}
+				else {
+					counter_inrush[i] = 0;
+					counter_fuse[i] = 0;
 				}
 			}
 
