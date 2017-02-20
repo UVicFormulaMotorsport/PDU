@@ -1,0 +1,14 @@
+Project Outputs Generation Report
+---------------------------------
+Start Output Generation At 8:17:56 AM On 2/20/2017
+
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [[No Variations]] of Project [PDU-UV17.PrjPcb]
+   Generated File[Bill of Materials-PDU-UV17.xlsx]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 8:18:29 AM On 2/20/2017
