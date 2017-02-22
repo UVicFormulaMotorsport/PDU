@@ -1,0 +1,5 @@
+DRC Rules Export File for PCB: C:\Users\Darryl Ring\Projects\FSAE-PDU-UV17\hardware\design\PDU-UV17.PcbDoc
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=6.00
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=1.97
+RuleKind=Clearance|RuleName=Clearance_1|Scope=Board|Minimum=5.98

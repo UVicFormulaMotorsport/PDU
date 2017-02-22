@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [PDU-UV17.PcbDoc]
+   Generated File[PDU-UV17.TXT]
+   Generated File[PDU-UV17.LDP]
+   Generated File[PDU-UV17.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 11:13:50 PM On 2/21/2017

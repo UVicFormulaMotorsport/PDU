@@ -208,6 +208,23 @@ GenerateClassCluster=0
 DocumentUniqueId=JQUCKFNI
 
 [Document11]
+DocumentPath=Inputs.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=10
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=UOLNYWQA
+
+[Document12]
 DocumentPath=Connectors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -224,7 +241,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=UNIOTIML
 
-[Document12]
+[Document13]
 DocumentPath=Mechanical.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -241,7 +258,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=DJTVODXC
 
-[Document13]
+[Document14]
 DocumentPath=PDU-UV17.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -258,7 +275,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=AFSDYYSU
 
-[Document14]
+[Document15]
 DocumentPath=PDU-UV17.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -275,7 +292,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=OHOIHQVS
 
-[Document15]
+[Document16]
 DocumentPath=PDU-UV17.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -292,7 +309,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=LLWUKMXA
 
-[Document16]
+[Document17]
 DocumentPath=jobs\BOM.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -310,20 +327,28 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [GeneratedDocument1]
-DocumentPath=PDU-UV17 2-19-2017 8-32-05 PM.WAS
+DocumentPath=Project Outputs for PDU-UV17\Design Rule Check - PDU-UV17.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
-DocumentPath=PDU-UV17 2-19-2017 8-32-39 PM.WAS
+DocumentPath=PDU-UV17 2-21-2017 11-07-02 PM.WAS
 DItemRevisionGUID=
 
 [Parameter1]
-Name=ProjectCar
-Value=UV17
+Name=ProjectDate
+Value=2017-02-21
 
 [Parameter2]
+Name=ProjectTitle
+Value=PDUv17: Power Distribution Unit
+
+[Parameter3]
 Name=ProjectRevision
-Value=A
+Value=B
+
+[Parameter4]
+Name=ProjectCar
+Value=UV17
 
 [Configuration1]
 Name=Default Configuration
