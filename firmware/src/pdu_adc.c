@@ -1,22 +1,13 @@
 void ADC_init() {
-    // APB peripheral clock enable register
-    RCC->APB2ENR |= RCC_APB2ENR_ADCEN;
 
-    // Calibration through the control register
-    ADC1->CR = ADC_CR_ADCAL;
+    // ADMUX - Choose Reference selection - VCC (+5V) selected
+    ADMUX = (1 << REFS0);
 
-    // wait for calibratrion to finish
-    while (ADC1->CR == ADC_CR_ADCAL);
+    // Control and Status Register A - ADC Enable 
+    ADCSRA = (1 << ADEN);
+    
+}
 
-    // Set the ADC channel
-    ADC1->CHSELR |= ADC_CHSELR_CHSEL3;
-
-    // set the sampling time
-    ADC1->SMPR |= ADC_SMPR_SMP;
-
-    // Set AD_EN = 1 to enable the adc through the control register
-    ADC1->CR |= ADC_CR_ADEN;
-
-    // wait until AD_RDY = 1 in the ADC ISR register
-    while ((ADC1->ISR & 0x1) != 0x1);
+uint16_t ADC_read(uint8_t channel) {
+    
 }
