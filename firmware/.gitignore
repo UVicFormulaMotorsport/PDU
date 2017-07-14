@@ -38,3 +38,12 @@
 
 # Disassembly
 *.S
+
+# Atmel Studio
+*.suo
+*.user
+.vs/
+
+# Build Outputs
+[Dd]ebug/
+[Rr]elease/

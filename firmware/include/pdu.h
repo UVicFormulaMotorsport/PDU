@@ -1,23 +1,43 @@
 /*
-  This file is part of the UVic Formula Motorsports PDU project.
-
-  Copyright (c) 2017 UVic Formula Motorsports
-
-  This program is free software: you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free Software
-  Foundation, either version 3 of the License, or (at your option) any later
-  version.
-
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License along with
-  this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#ifndef __PDU_H__
-#define __PDU_H__
+ * pdu.h
+ *
+ * Created: 2017-04-22 10:09:56 AM
+ *  Author: Darryl Ring
+ */ 
 
 
-#endif
+#ifndef PDU_H_
+#define PDU_H_
+
+#define F_CPU 16000000UL
+
+#include <util/delay.h>
+
+
+/****************************************
+
+20 A channels
+Port A (7: Ch6, 6: Ch5, 5: Ch8, 4: Ch7, 3: Ch2, 2: Ch1, 1: Ch4, 0: Ch3)
+
+5 A channels
+GPA (7: Ch5, 6: Ch6, 5: Ch7, 4: Ch8, 3: Ch4, 2: Ch3, 1: Ch2, 0: Ch1)
+GPB (7: Ch16, 6: Ch15, 5: Ch14, 4: Ch13, 3: Ch9, 2: Ch10, 1: Ch11, 0: Ch12)
+
+Inputs
+GPA (7: In5, 6: In6, 5: In7, 4: In8, 3: In4, 2: In3, 1: In2, 0: In1)
+GPB (7: Ch16, 6: Ch15, 5: Ch14, 4: Ch13, 3: Ch9, 2: Ch10, 1: Ch11, 0: Ch12)
+
+*****************************************/
+
+#define DEFAULT_20A_OUTPUTS 0x20; // ECU on by default
+#define DEFAULT_5A_OUTPUTS_A 0xF7; // All non-switched channels on by default
+#define DEFAULT_5A_OUTPUTS_B 0xFF; // ALl non-switched channels on by default
+
+void pdu_output_20a_enable(uint8_t output);
+void pdu_output_20a_disable(uint8_t output);
+
+void pdu_output_5a_enable(uint8_t output);
+void pdu_output_5a_disable(uint8_t output);
+
+
+#endif /* PDU_H_ */
