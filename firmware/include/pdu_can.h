@@ -8,6 +8,7 @@
 
 #ifndef PDU_CAN_H_
 #define PDU_CAN_H_
+#define PDU_CAN_INTERVAL 10
 
 
 void pdu_can_init(void);

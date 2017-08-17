@@ -128,6 +128,12 @@ ISR(CANIT_vect)
 			} else if (idx == 2) {
 				if (byte == 0) pdu_output_5a_disable(4);
 				else pdu_output_5a_enable(4);
+			} else if (idx == 5){ //Input 1, set PDU PIN 30/Channel 16 HIGH
+				if ((byte == 0) && (pdu_checkChannel(15))) pdu_output_5a_enable(16); //checking if Ch 15 is high, setting Ch 16 high
+				else pdu_output_5a_disable(16);
+			}else if (idx == 7){ //Input 7, set PDU PIN 32 / Channel 15 HIGH
+				if (byte == 0 && (pdu_checkChannel(16))) pdu_output_5a_enable(15); //checking if Ch 16 is high, setting Ch 15 high
+				else pdu_output_5a_disable(15);
 			}
 		}
 	}
@@ -137,3 +143,17 @@ ISR(CANIT_vect)
 	CANSTMOB = 0;
 	CANCDMOB |= (1 << CONMOB1);
 }
+
+
+//implement into ECU 
+
+//two high current outputs that are unused, connect the two DRS pins to those
+//swap the DRS open and DRS closed pins to another two PDU pins 
+
+//branch and start committing 
+
+//LCD backlight, storage, route JTAG to connector, anything else? CPU config? USB? 
+//software challenge
+//possibility to implement telemetry
+//darryl has some software stuff done
+//LINUX software person

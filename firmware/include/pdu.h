@@ -33,11 +33,18 @@ GPB (7: Ch16, 6: Ch15, 5: Ch14, 4: Ch13, 3: Ch9, 2: Ch10, 1: Ch11, 0: Ch12)
 #define DEFAULT_5A_OUTPUTS_A 0xF7; // All non-switched channels on by default
 #define DEFAULT_5A_OUTPUTS_B 0xFF; // ALl non-switched channels on by default
 
+#define PDU_INPUT_INTERVAL 10
+
+
 void pdu_output_20a_enable(uint8_t output);
 void pdu_output_20a_disable(uint8_t output);
 
 void pdu_output_5a_enable(uint8_t output);
 void pdu_output_5a_disable(uint8_t output);
 
+volatile uint32_t pdu_clock;
+volatile uint32_t DRS_counter;
+
+volatile uint8_t pdu_can_trigger;
 
 #endif /* PDU_H_ */

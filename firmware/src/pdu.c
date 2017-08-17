@@ -14,6 +14,11 @@
 #include "pdu_can.h"
 #include "pdu_spi.h"
 
+volatile uint32_t pdu_clock = 0;
+
+volatile uint8_t pdu_can_trigger = 0;
+volatile uint8_t pdu_fuse_trigger = 0;
+volatile uint8_t pdu_input_trigger = 0;
 
 volatile uint8_t outputs_20a = DEFAULT_20A_OUTPUTS;
 volatile uint8_t outputs_5a_a = DEFAULT_5A_OUTPUTS_A;
@@ -100,6 +105,17 @@ int main(void)
 	}
 }
 
+void
+pdu_timer_init(void)
+{
+	/* Output compare interrupts every 1 ms */
+	TCCR1B |= (1 << WGM12);
+	TIMSK1 |= (1 << OCIE1A);
+	OCR1A   = 999;
+
+	/* Set timer clock prescaler to 8 for a 1 MHz timer clock */
+	TCCR1B |= (1 << CS11);
+}
 
 /*
 20 A channels
@@ -309,3 +325,169 @@ pdu_output_5a_disable(uint8_t output)
 		outputs_5a_changed = 1;
 	}
 }
+
+int
+pdu_checkChannel(output){
+	
+
+		switch (output) {
+		case 1:
+			if((outputs_5a_a && ~0x01) == 0){ //Channel is low
+				return 1;
+			}
+			else if((outputs_5a_a && ~0x01) > 0){ //Channel is high
+				return 0;
+			}
+			break;
+		case 2:
+			if((outputs_5a_a && ~0x02) == 0){
+				return 1;
+			}
+			else if((outputs_5a_a && ~0x02) >0){
+				return 0;
+			}			
+			break;
+		case 3:
+			if((outputs_5a_a  && ~0x04) == 0){
+				return 1;
+			}
+			else if ((outputs_5a_a && ~0x04) >0){
+				return 0;
+			}
+			break;
+		case 4:
+			if((outputs_5a_a && ~0x08) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x08) > 0){
+				return 0 ;
+			}
+			break;
+		case 5:
+		
+			if((outputs_5a_a && ~0x80) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x80) > 0){
+				return 0 ;
+			}
+			break;
+		case 6:
+			if((outputs_5a_a && ~0x40) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x40) > 0){
+				return 0 ;
+			}
+			break;
+		case 7:
+			if((outputs_5a_a && ~0x20) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x20) > 0){
+				return 0 ;
+			}
+			break;
+		case 8:
+			if((outputs_5a_a && ~0x10) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x10) > 0){
+				return 0 ;
+			}
+			break;
+		case 9:
+			if((outputs_5a_a && ~0x08) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x08) > 0){
+				return 0 ;
+			}
+			break;
+		case 10:
+			if((outputs_5a_a && ~0x04) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x04) > 0){
+				return 0 ;
+			}
+			break;
+		case 11:
+			if((outputs_5a_a && ~0x02) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x02) > 0){
+				return 0 ;
+			}
+			break;
+		case 12:
+			if((outputs_5a_a && ~0x01) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x01) > 0){
+				return 0 ;
+			}
+			break;
+		case 13:
+			if((outputs_5a_a && ~0x10) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x10) > 0){
+				return 0 ;
+			}
+			break;
+		case 14:
+			if((outputs_5a_a && ~0x20) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x20) > 0){
+				return 0 ;
+			}
+			break;
+		case 15:
+			if((outputs_5a_a && ~0x40) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x40) > 0){
+				return 0 ;
+			}
+			break;
+		case 16:
+			if((outputs_5a_a && ~0x80) ==0){
+				return 1 ;
+			}
+			else if((outputs_5a_a && ~0x80) > 0){
+				return 0 ;
+			}
+			break;
+	}
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+	uint8_t outputs_5a_a_new = outputs_5a_a;
+	uint8_t outputs_5a_b_new = outputs_5a_b;
+	pdu_clock++;
+	DRS_counter++;
+	/* Trigger CAN messages */
+	if (pdu_clock % PDU_CAN_INTERVAL == 0) pdu_can_trigger = 1;
+
+	/* Trigger input check */
+	if (pdu_clock % PDU_INPUT_INTERVAL == 0) pdu_input_trigger = 1;
+
+	if(DRS_counter >= 220){
+		if((outputs_5a_b_new && ~0x80) > 0){ //if channel 16 is high
+			pdu_output_5a_disable(16); // disable ch 16
+		}
+		if((outputs_5a_b_new && ~0x40) > 0){ //if channel 15 is high
+			pdu_output_5a_disable(15); //disable ch 15
+		}
+	} 
+		
+	
+	/* Trigger fuse check */
+	pdu_fuse_trigger = 1;
+}
+
+//I'd probably just check in the ISR if an input is active, if so, increment a counter. 
+//Once the counter reaches the max, it turns off the channel and resets the counter.
