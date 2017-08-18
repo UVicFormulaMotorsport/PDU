@@ -326,147 +326,64 @@ pdu_output_5a_disable(uint8_t output)
 	}
 }
 
-int
-pdu_checkChannel(output){
+uint8_t
+pdu_channel_enabled(uint8_t output){
 	
 
 		switch (output) {
 		case 1:
-			if((outputs_5a_a && ~0x01) == 0){ //Channel is low
-				return 1;
-			}
-			else if((outputs_5a_a && ~0x01) > 0){ //Channel is high
-				return 0;
-			}
+			return ((outputs_5a_a & 0x01) > 0);
 			break;
 		case 2:
-			if((outputs_5a_a && ~0x02) == 0){
-				return 1;
-			}
-			else if((outputs_5a_a && ~0x02) >0){
-				return 0;
-			}			
+			return((outputs_5a_a & ~0x02) >0);	
 			break;
 		case 3:
-			if((outputs_5a_a  && ~0x04) == 0){
-				return 1;
-			}
-			else if ((outputs_5a_a && ~0x04) >0){
-				return 0;
-			}
+			return((outputs_5a_a & ~0x04) >0);
 			break;
 		case 4:
-			if((outputs_5a_a && ~0x08) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x08) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x08) > 0);
 			break;
 		case 5:
-		
-			if((outputs_5a_a && ~0x80) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x80) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x80) > 0);
 			break;
 		case 6:
-			if((outputs_5a_a && ~0x40) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x40) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x40) > 0);
 			break;
 		case 7:
-			if((outputs_5a_a && ~0x20) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x20) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x20) > 0);
 			break;
 		case 8:
-			if((outputs_5a_a && ~0x10) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x10) > 0){
-				return 0 ;
-			}
+			return ((outputs_5a_a & ~0x10) > 0);
 			break;
 		case 9:
-			if((outputs_5a_a && ~0x08) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x08) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x08) > 0);
 			break;
 		case 10:
-			if((outputs_5a_a && ~0x04) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x04) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x04) > 0);
 			break;
 		case 11:
-			if((outputs_5a_a && ~0x02) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x02) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x02) > 0);
 			break;
 		case 12:
-			if((outputs_5a_a && ~0x01) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x01) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x01) > 0);
 			break;
 		case 13:
-			if((outputs_5a_a && ~0x10) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x10) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x10) > 0);
 			break;
 		case 14:
-			if((outputs_5a_a && ~0x20) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x20) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x20) > 0);
 			break;
 		case 15:
-			if((outputs_5a_a && ~0x40) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x40) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x40) > 0);
 			break;
 		case 16:
-			if((outputs_5a_a && ~0x80) ==0){
-				return 1 ;
-			}
-			else if((outputs_5a_a && ~0x80) > 0){
-				return 0 ;
-			}
+			return((outputs_5a_a & ~0x80) > 0);
 			break;
 	}
 }
 
 ISR(TIMER1_COMPA_vect)
 {
-	uint8_t outputs_5a_a_new = outputs_5a_a;
-	uint8_t outputs_5a_b_new = outputs_5a_b;
 	pdu_clock++;
 	DRS_counter++;
 	/* Trigger CAN messages */
@@ -476,10 +393,10 @@ ISR(TIMER1_COMPA_vect)
 	if (pdu_clock % PDU_INPUT_INTERVAL == 0) pdu_input_trigger = 1;
 
 	if(DRS_counter >= 220){
-		if((outputs_5a_b_new && ~0x80) > 0){ //if channel 16 is high
+		if(pdu_channel_enabled(16)){ //if channel 16 is high
 			pdu_output_5a_disable(16); // disable ch 16
 		}
-		if((outputs_5a_b_new && ~0x40) > 0){ //if channel 15 is high
+		if(pdu_channel_enabled(15)){ //if channel 15 is high
 			pdu_output_5a_disable(15); //disable ch 15
 		}
 	} 

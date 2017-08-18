@@ -42,6 +42,8 @@ void pdu_output_20a_disable(uint8_t output);
 void pdu_output_5a_enable(uint8_t output);
 void pdu_output_5a_disable(uint8_t output);
 
+uint8_t pdu_channel_enabled(uint8_t output);
+
 volatile uint32_t pdu_clock;
 volatile uint32_t DRS_counter;
 
