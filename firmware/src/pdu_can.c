@@ -137,10 +137,10 @@ ISR(CANIT_vect)
 			
 			byte = CANMSG;
 			if (idx == 5){ //Input 1, set PDU PIN 30/Channel 16 HIGH
-				if ((byte == 0) && !(pdu_channel_enabled(15))) pdu_output_5a_enable(16); //checking if Ch 15 is high, setting Ch 16 high
+				if ((byte == 1) && !(pdu_channel_enabled(15))) pdu_output_5a_enable(16); //checking if Ch 15 is high, setting Ch 16 high
 				else pdu_output_5a_disable(16);
 			}else if (idx == 7){ //Input 7, set PDU PIN 32 / Channel 15 HIGH
-				if (byte == 0 && !(pdu_channel_enabled(16))) pdu_output_5a_enable(15); //checking if Ch 16 is high, setting Ch 15 high
+				if (byte == 1 && !(pdu_channel_enabled(16))) pdu_output_5a_enable(15); //checking if Ch 16 is high, setting Ch 15 high
 				else pdu_output_5a_disable(15);
 			}
 		}

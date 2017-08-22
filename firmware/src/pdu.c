@@ -335,49 +335,49 @@ pdu_channel_enabled(uint8_t output){
 			return ((outputs_5a_a & 0x01) > 0);
 			break;
 		case 2:
-			return((outputs_5a_a & ~0x02) >0);	
+			return((outputs_5a_a & 0x02) >0);	
 			break;
 		case 3:
-			return((outputs_5a_a & ~0x04) >0);
+			return((outputs_5a_a & 0x04) >0);
 			break;
 		case 4:
-			return((outputs_5a_a & ~0x08) > 0);
+			return((outputs_5a_a & 0x08) > 0);
 			break;
 		case 5:
-			return((outputs_5a_a & ~0x80) > 0);
+			return((outputs_5a_a & 0x80) > 0);
 			break;
 		case 6:
-			return((outputs_5a_a & ~0x40) > 0);
+			return((outputs_5a_a & 0x40) > 0);
 			break;
 		case 7:
-			return((outputs_5a_a & ~0x20) > 0);
+			return((outputs_5a_a & 0x20) > 0);
 			break;
 		case 8:
-			return ((outputs_5a_a & ~0x10) > 0);
+			return ((outputs_5a_a & 0x10) > 0);
 			break;
 		case 9:
-			return((outputs_5a_a & ~0x08) > 0);
+			return((outputs_5a_a & 0x08) > 0);
 			break;
 		case 10:
-			return((outputs_5a_a & ~0x04) > 0);
+			return((outputs_5a_a & 0x04) > 0);
 			break;
 		case 11:
-			return((outputs_5a_a & ~0x02) > 0);
+			return((outputs_5a_a & 0x02) > 0);
 			break;
 		case 12:
-			return((outputs_5a_a & ~0x01) > 0);
+			return((outputs_5a_a & 0x01) > 0);
 			break;
 		case 13:
-			return((outputs_5a_a & ~0x10) > 0);
+			return((outputs_5a_a & 0x10) > 0);
 			break;
 		case 14:
-			return((outputs_5a_a & ~0x20) > 0);
+			return((outputs_5a_a & 0x20) > 0);
 			break;
 		case 15:
-			return((outputs_5a_a & ~0x40) > 0);
+			return((outputs_5a_a & 0x40) > 0);
 			break;
 		case 16:
-			return((outputs_5a_a & ~0x80) > 0);
+			return((outputs_5a_a & 0x80) > 0);
 			break;
 	}
 }
