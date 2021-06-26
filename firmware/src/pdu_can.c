@@ -120,28 +120,25 @@ ISR(CANIT_vect)
 			byte = CANMSG;
 			
 			if (idx == 0) {
+				// Fans
 				if (byte == 0) pdu_output_20a_disable(4);
 				else pdu_output_20a_enable(4);
 			} else if (idx == 1) {
+				// Fuel Pump
 				if (byte == 0) pdu_output_20a_disable(1);
 				else pdu_output_20a_enable(1);
 			} else if (idx == 2) {
+				// Brake Light
 				if (byte == 0) pdu_output_5a_disable(4);
 				else pdu_output_5a_enable(4);
-			} 
-		}
-	}
-	
-	if( id == 0x400){
-		for (idx = 0; idx < len; idx++) {
-			
-			byte = CANMSG;
-			if (idx == 5){ //Input 1, set PDU PIN 30/Channel 16 HIGH
-				if ((byte == 1) && !(pdu_channel_enabled(15))) pdu_output_5a_enable(16); //checking if Ch 15 is high, setting Ch 16 high
-				else pdu_output_5a_disable(16);
-			}else if (idx == 7){ //Input 7, set PDU PIN 32 / Channel 15 HIGH
-				if (byte == 1 && !(pdu_channel_enabled(16))) pdu_output_5a_enable(15); //checking if Ch 16 is high, setting Ch 15 high
-				else pdu_output_5a_disable(15);
+			} else if (idx == 3) {
+				// Shifter Forward
+				if (byte == 0) pdu_output_20a_disable(0);
+				else pdu_output_20a_enable(0);
+			} else if (idx == 4) {
+				// Shifter Backward
+				if (byte == 0) pdu_output_20a_disable(2);
+				else pdu_output_20a_enable(2);
 			}
 		}
 	}

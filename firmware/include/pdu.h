@@ -17,7 +17,7 @@
 /****************************************
 
 20 A channels
-Port A (7: Ch6, 6: Ch5, 5: Ch8, 4: Ch7, 3: Ch2, 2: Ch1, 1: Ch4, 0: Ch3)
+Port A (7: Ch6, 6: Ch5, 5: Ch8, 4: Ch7, 3: Ch2 , 2: Ch1, 1: Ch4, 0: Ch3)
 
 5 A channels
 GPA (7: Ch5, 6: Ch6, 5: Ch7, 4: Ch8, 3: Ch4, 2: Ch3, 1: Ch2, 0: Ch1)
@@ -29,9 +29,9 @@ GPB (7: Ch16, 6: Ch15, 5: Ch14, 4: Ch13, 3: Ch9, 2: Ch10, 1: Ch11, 0: Ch12)
 
 *****************************************/
 
-#define DEFAULT_20A_OUTPUTS 0x20; // ECU on by default
-#define DEFAULT_5A_OUTPUTS_A 0xF7; // All non-switched channels on by default
-#define DEFAULT_5A_OUTPUTS_B 0xFF; // ALl non-switched channels on by default
+#define DEFAULT_20A_OUTPUTS 0x20;  // ECU on by default 0010 0000 
+#define DEFAULT_5A_OUTPUTS_A 0xF7; // All non-switched channels on by default 1111 0111
+#define DEFAULT_5A_OUTPUTS_B 0xFF; // ALl non-switched channels on by default 1111 1111
 
 #define PDU_INPUT_INTERVAL 10
 
