@@ -133,12 +133,12 @@ ISR(CANIT_vect)
 				else pdu_output_5a_enable(4);
 			} else if (idx == 3) {
 				// Shifter Forward
-				if (byte == 0) pdu_output_20a_disable(0);
-				else pdu_output_20a_enable(0);
+				if (byte == 0) pdu_output_20a_disable(6);
+				else pdu_output_20a_enable(6);
 			} else if (idx == 4) {
 				// Shifter Backward
-				if (byte == 0) pdu_output_20a_disable(2);
-				else pdu_output_20a_enable(2);
+				if (byte == 0) pdu_output_20a_disable(7);
+				else pdu_output_20a_enable(7);
 			}
 		}
 	}

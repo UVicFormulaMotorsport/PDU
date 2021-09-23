@@ -79,7 +79,7 @@ int main(void)
 	sei();
 
 	while (1) {
-		PORTA = outputs_20a;
+		PORTA = outputs_20a;	// Set 20A pins to default setting as defined in pdu.h
 
 		if (outputs_5a_changed) {
 			PORTB &= ~(1 << PB4); // CS2 low
@@ -127,7 +127,7 @@ pdu_output_20a_enable(uint8_t output)
 {
 	switch (output) {
 	case 1:
-		outputs_20a |= (1 << 2);
+		outputs_20a |= (1 << 2); //Pin PA2 or SW 20A R1
 		break;
 	case 2:
 		outputs_20a |= (1 << 3);
@@ -139,10 +139,10 @@ pdu_output_20a_enable(uint8_t output)
 		outputs_20a |= (1 << 1);
 		break;
 	case 5:
-		outputs_20a |= (1 << 6);
+		outputs_20a |= (1 << 6); //Pin PA6 or SW 20A R6
 		break;
 	case 6:
-		outputs_20a |= (1 << 7);
+		outputs_20a |= (1 << 7); //Pin PA7 or SW 20A R7
 		break;
 	case 7:
 		outputs_20a |= (1 << 4);
