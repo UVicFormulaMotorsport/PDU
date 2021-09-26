@@ -127,28 +127,28 @@ pdu_output_20a_enable(uint8_t output)
 {
 	switch (output) {
 	case 1:
-		outputs_20a |= (1 << 2); //Pin PA2 or SW 20A R1
+		outputs_20a |= (1 << 2); // Fuel Pump
 		break;
 	case 2:
-		outputs_20a |= (1 << 3);
+		outputs_20a |= (1 << 3); // Backward
 		break;
 	case 3:
 		outputs_20a |= (1 << 0);
 		break;
 	case 4:
-		outputs_20a |= (1 << 1);
+		outputs_20a |= (1 << 1); // Fans
 		break;
 	case 5:
-		outputs_20a |= (1 << 6); //Pin PA6 or SW 20A R6
+		outputs_20a |= (1 << 6); // Forward
 		break;
 	case 6:
-		outputs_20a |= (1 << 7); //Pin PA7 or SW 20A R7
+		outputs_20a |= (1 << 7);
 		break;
 	case 7:
 		outputs_20a |= (1 << 4);
 		break;
 	case 8:
-		outputs_20a |= (1 << 5);
+		outputs_20a |= (1 << 5); //ECU Power dont touch
 		break;
 	}
 }
