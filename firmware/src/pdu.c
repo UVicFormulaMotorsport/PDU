@@ -36,8 +36,7 @@ int main(void)
 	DDRA = 0xFF;
 
 	/* Configure 5 A switch outputs */
-
-	PORTB &= ~(1 << PB4); // CS2 low
+	// Setting all GPIOA pins to output
 	SPDR = 0x40; // Write
 	while(!(SPSR & (1<<SPIF)));
 	SPDR = 0x00; // IODIRA
@@ -45,7 +44,8 @@ int main(void)
 	SPDR = 0x00; // All outputs
 	while(!(SPSR & (1<<SPIF)));
 	PORTB |= (1 << PB4); // CS2 high
-	
+
+	// Setting all GPIOB pins to output
 	PORTB &= ~(1 << PB4); // CS2 low
 	SPDR = 0x40; // Write
 	while(!(SPSR & (1<<SPIF)));
@@ -63,7 +63,7 @@ int main(void)
 	SPDR = outputs_5a_a;
 	while(!(SPSR & (1<<SPIF)));
 	PORTB |= (1 << PB4); // CS2 high
-	
+
 	PORTB &= ~(1 << PB4); // CS2 low
 	SPDR = 0x40; // Write
 	while(!(SPSR & (1<<SPIF)));
@@ -127,28 +127,28 @@ pdu_output_20a_enable(uint8_t output)
 {
 	switch (output) {
 	case 1:
-		outputs_20a |= (1 << 2); // Fuel Pump
-		break;
-	case 2:
-		outputs_20a |= (1 << 3); // Backward
-		break;
-	case 3:
 		outputs_20a |= (1 << 0);
 		break;
+	case 2:
+		outputs_20a |= (1 << 1);
+		break;
+	case 3:
+		outputs_20a |= (1 << 2);
+		break;
 	case 4:
-		outputs_20a |= (1 << 1); // Fans
+		outputs_20a |= (1 << 3);
 		break;
 	case 5:
-		outputs_20a |= (1 << 6); // Forward
-		break;
-	case 6:
-		outputs_20a |= (1 << 7);
-		break;
-	case 7:
 		outputs_20a |= (1 << 4);
 		break;
+	case 6:
+		outputs_20a |= (1 << 5);
+		break;
+	case 7:
+		outputs_20a |= (1 << 6);
+		break;
 	case 8:
-		outputs_20a |= (1 << 5); //ECU Power dont touch
+		outputs_20a |= (1 << 7);
 		break;
 	}
 }
@@ -158,28 +158,28 @@ pdu_output_20a_disable(uint8_t output)
 {
 	switch (output) {
 	case 1:
-		outputs_20a &= ~(1 << 2);
-		break;
-	case 2:
-		outputs_20a &= ~(1 << 3);
-		break;
-	case 3:
 		outputs_20a &= ~(1 << 0);
 		break;
-	case 4:
+	case 2:
 		outputs_20a &= ~(1 << 1);
 		break;
+	case 3:
+		outputs_20a &= ~(1 << 2);
+		break;
+	case 4:
+		outputs_20a &= ~(1 << 3);
+		break;
 	case 5:
-		outputs_20a &= ~(1 << 6);
-		break;
-	case 6:
-		outputs_20a &= ~(1 << 7);
-		break;
-	case 7:
 		outputs_20a &= ~(1 << 4);
 		break;
-	case 8:
+	case 6:
 		outputs_20a &= ~(1 << 5);
+		break;
+	case 7:
+		outputs_20a &= ~(1 << 6);
+		break;
+	case 8:
+		outputs_20a &= ~(1 << 7);
 		break;
 	}
 }
@@ -210,28 +210,28 @@ pdu_output_5a_enable(uint8_t output)
 			outputs_5a_a_new |= 0x08;
 			break;
 		case 5:
-			outputs_5a_a_new |= 0x80;
-			break;
-		case 6:
-			outputs_5a_a_new |= 0x40;
-			break;
-		case 7:
-			outputs_5a_a_new |= 0x20;
-			break;
-		case 8:
 			outputs_5a_a_new |= 0x10;
 			break;
+		case 6:
+			outputs_5a_a_new |= 0x20;
+			break;
+		case 7:
+			outputs_5a_a_new |= 0x40;
+			break;
+		case 8:
+			outputs_5a_a_new |= 0x80;
+			break;
 		case 9:
-			outputs_5a_b_new |= 0x08;
+			outputs_5a_b_new |= 0x01;
 			break;
 		case 10:
-			outputs_5a_b_new |= 0x04;
-			break;
-		case 11:
 			outputs_5a_b_new |= 0x02;
 			break;
+		case 11:
+			outputs_5a_b_new |= 0x04;
+			break;
 		case 12:
-			outputs_5a_b_new |= 0x01;
+			outputs_5a_b_new |= 0x08;
 			break;
 		case 13:
 			outputs_5a_b_new |= 0x10;
@@ -278,28 +278,28 @@ pdu_output_5a_disable(uint8_t output)
 			outputs_5a_a_new &= ~0x08;
 			break;
 		case 5:
-			outputs_5a_a_new &= ~0x80;
-			break;
-		case 6:
-			outputs_5a_a_new &= ~0x40;
-			break;
-		case 7:
-			outputs_5a_a_new &= ~0x20;
-			break;
-		case 8:
 			outputs_5a_a_new &= ~0x10;
 			break;
+		case 6:
+			outputs_5a_a_new &= ~0x20;
+			break;
+		case 7:
+			outputs_5a_a_new &= ~0x40;
+			break;
+		case 8:
+			outputs_5a_a_new &= ~0x80;
+			break;
 		case 9:
-			outputs_5a_b_new &= ~0x08;
+			outputs_5a_b_new &= ~0x01;
 			break;
 		case 10:
-			outputs_5a_b_new &= ~0x04;
-			break;
-		case 11:
 			outputs_5a_b_new &= ~0x02;
 			break;
+		case 11:
+			outputs_5a_b_new &= ~0x04;
+			break;
 		case 12:
-			outputs_5a_b_new &= ~0x01;
+			outputs_5a_b_new &= ~0x08;
 			break;
 		case 13:
 			outputs_5a_b_new &= ~0x10;
@@ -328,17 +328,15 @@ pdu_output_5a_disable(uint8_t output)
 
 uint8_t
 pdu_channel_enabled(uint8_t output){
-	
-
 		switch (output) {
 		case 1:
 			return ((outputs_5a_a & 0x01) > 0);
 			break;
 		case 2:
-			return((outputs_5a_a & 0x02) >0);	
+			return((outputs_5a_a & 0x02) > 0);	
 			break;
 		case 3:
-			return((outputs_5a_a & 0x04) >0);
+			return((outputs_5a_a & 0x04) > 0);
 			break;
 		case 4:
 			return((outputs_5a_a & 0x08) > 0);
@@ -379,6 +377,8 @@ pdu_channel_enabled(uint8_t output){
 		case 16:
 			return((outputs_5a_a & 0x80) > 0);
 			break;
+		default:
+			return 0;
 	}
 }
 

@@ -119,26 +119,37 @@ ISR(CANIT_vect)
 		for (idx = 0; idx < len; idx++) {
 			byte = CANMSG;
 			
-			if (idx == 0) {
-				// Fans
-				if (byte == 0) pdu_output_20a_disable(4);
-				else pdu_output_20a_enable(4);
-			} else if (idx == 1) {
-				// Fuel Pump
-				if (byte == 0) pdu_output_20a_disable(1);
-				else pdu_output_20a_enable(1);
-			} else if (idx == 2) {
-				// Brake Light
-				if (byte == 0) pdu_output_5a_disable(4);
-				else pdu_output_5a_enable(4);
-			} else if (idx == 3) {
-				// Shifter Forward
-				if (byte == 0) pdu_output_20a_disable(5);
-				else pdu_output_20a_enable(5);
-			} else if (idx == 4) {
-				// Shifter Backward
-				if (byte == 0) pdu_output_20a_disable(2);
-				else pdu_output_20a_enable(2);
+			// bits 0 - 3 specify the channel we are toggling
+			// bit 4 signifies enable or disable, 1 - enable, 0 - disable
+			// bit 5 signifies 20amp vs 5 amp, 1 - 20amp, 0 - 5amp
+			
+			// 20 amp output
+			if(byte & 0x20)
+			{
+				// Enable
+				if(byte & 0x10)
+				{
+					pdu_output_20a_enable(byte & 0x0F);
+				}
+				// Disable
+				else
+				{
+					pdu_output_20a_disable(byte & 0x0F);
+				}
+			}
+			// 5 amp output
+			else
+			{
+				// Enable
+				if(byte & 0x10)
+				{
+					pdu_output_5a_enable(byte & 0x0F);
+				}
+				// Disable
+				else
+				{
+					pdu_output_5a_disable(byte & 0x0F);
+				}
 			}
 		}
 	}
