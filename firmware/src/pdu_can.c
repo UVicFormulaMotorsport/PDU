@@ -5,6 +5,8 @@
 
 #include "pdu_can.h"
 
+#define USING_FILTERS 0
+
 uint16_t pdu_can_get_id(void);
 void pdu_can_set_id(uint16_t id);
 void pdu_can_set_mask(uint16_t mask);
@@ -23,7 +25,9 @@ pdu_can_init(void)
 	  Baud rate of 1 Mbps with a 16 MHz clock. See Table 19-2 on page 188 of the
 	  data sheet.
 	*/
-	CANBT1 = 0x00;
+	// CANBT1 = 0x00; //Sets prescaler to 1 - leads to 1Mbps
+	
+	CANBT1 = (1 << BRP0); //Prescaler 2 -> 500kbps
 	CANBT2 = 0x0C;
 	CANBT3 = 0x36;
 
@@ -36,14 +40,24 @@ pdu_can_init(void)
 	CANCDMOB = 0x00;
 	CANSTMOB = 0x00;
 
+
+	#if USING_FILTERS
+	pdu_can_set_id(0x710);
+	pdu_can_set_mask(0x7FF);
+	#else
 	pdu_can_set_id(0);
 	pdu_can_set_mask(0);
+	#endif
+	
+	
 
 	/* All input messages are 1 byte */
 	CANCDMOB |= 8;
 
 	/* Enable receive */
 	CANCDMOB |= (1 << CONMOB1);
+	
+	//Next we will enable transmission on MOb 1.
 
 	/* Enable CAN controller */
 	CANGCON |= (1 << ENASTB);
@@ -108,7 +122,8 @@ ISR(CANIT_vect)
 	uint8_t  idx;
 	uint8_t  byte;
 
-	CANPAGE = 0;
+	//CANPAGE = 0b00001000; //Sets the auto increment, thereby theoretically allowing multiple channels to be set by one message!
+	CANPAGE &= ~0x07;
 
 	id  = pdu_can_get_id();
 	len = (CANCDMOB & 0x0F);
@@ -157,7 +172,7 @@ ISR(CANIT_vect)
 	
 	/* Re-enable transmission */
 	CANSTMOB = 0;
-	CANCDMOB |= (1 << CONMOB1);
+	CANCDMOB |= (1 << CONMOB1); //This actually re-enables reception though?? HUH?
 }
 
 

@@ -28,20 +28,20 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.37" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <ResetRule>0</ResetRule>
     <EraseKey />
     <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
-    <avrtoolserialnumber>J41800095703</avrtoolserialnumber>
+    <avrtoolserialnumber>J42700084155</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x1E9581</avrdeviceexpectedsignature>
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
@@ -51,7 +51,7 @@
         <InterfaceName>ISP</InterfaceName>
       </ToolOptions>
       <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
-      <ToolNumber>J41800095703</ToolNumber>
+      <ToolNumber>J42700084155</ToolNumber>
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
     <avrtoolinterface>ISP</avrtoolinterface>

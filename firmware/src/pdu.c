@@ -195,6 +195,7 @@ pdu_output_5a_enable(uint8_t output)
 {
 	uint8_t outputs_5a_a_new = outputs_5a_a;
 	uint8_t outputs_5a_b_new = outputs_5a_b;
+	output++;
 	
 	switch (output) {
 		case 1:
@@ -263,6 +264,7 @@ pdu_output_5a_disable(uint8_t output)
 {
 	uint8_t outputs_5a_a_new = outputs_5a_a;
 	uint8_t outputs_5a_b_new = outputs_5a_b;
+	output++;
 	
 	switch (output) {
 		case 1:
